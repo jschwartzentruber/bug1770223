@@ -58,4 +58,5 @@ WORKDIR /builds/worker/checkouts/gecko
 COPY mozconfig .mozconfig
 RUN ./mach build
 ENV ASAN_SYMBOLIZER_PATH /builds/worker/fetches/llvm-symbolizer/bin/llvm-symbolizer
-CMD LD_LIBRARY_PATH=./obj/ff-asan-snapshot/dist/bin ./obj/ff-asan-snapshot/dist/bin/xpcshell
+ENV AFL_MAP_SIZE 10000000
+CMD Xvfb & __AFL_DEFER_FORKSRV=1 ./obj/ff-asan-snapshot/dist/bin/firefox
